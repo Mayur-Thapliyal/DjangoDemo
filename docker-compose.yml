@@ -1,4 +1,4 @@
-version: '0.1.0'
+version: '3.8'
 services:
   db:
     container_name: post_djangodemo_db
@@ -16,7 +16,7 @@ services:
       - "5435:5435"  
     restart: always
   pgadmin:
-    container_name: pgadmin4_moguls
+    container_name: pgadmin4
     image: dpage/pgadmin4
     restart: always
     environment:
@@ -31,7 +31,9 @@ services:
     build:
       context: ./
       dockerfile: DockerFile-dev
-    command: sh -c"python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:9001"
+    command: >
+      sh -c "python3 manage.py migrate &&
+             python3 manage.py runserver 0.0.0.0:9001"
     ports:
       - "8001:9001"
     volumes:
