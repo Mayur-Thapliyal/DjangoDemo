@@ -2,7 +2,7 @@
 DjangoDemo repo for EC2 
 
 #### Setup:
-- Clone the repo and create a virtual python env  (recommended) by using following command:-
+- Clone git repo ```https://github.com/Mayur-Thapliyal/DjangoDemo/tree/dev``` and create a virtual python env  (recommended) by using following command:-
 
 ``` bash
 python3 -m venv venv
@@ -15,7 +15,7 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 ```
 #### Providing User details to register
-- With your active python env. Clone git repo ```https://github.com/Mayur-Thapliyal/DjangoDemo/dev``` and redirect to ITresumeParser and run
+- With your active python env. Redirect to DjangoDemoProj and run
 ```python
     python3 manage.py createsuperuser
 ```
