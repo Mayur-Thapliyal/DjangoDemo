@@ -1,0 +1,42 @@
+version: '0.1.0'
+services:
+  db:
+    container_name: post_djangodemo_db
+    env_file:
+      - ./.env
+    image: postgres          
+    volumes:
+      - ./data/db:/var/lib/postgresql/data 
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}                 
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+
+    ports:
+      - "5435:5435"  
+    restart: always
+  pgadmin:
+    container_name: pgadmin4_moguls
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5051:80"
+    depends_on:
+      - db
+  web:
+    container_name: DjangoDemo
+    build:
+      context: ./
+      dockerfile: DockerFile-dev
+    command: sh -c"python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:9001"
+    ports:
+      - "8001:9001"
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - db
